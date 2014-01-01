@@ -13,15 +13,17 @@ For use:
 
 2) Add the LoadAnimationLibrary folder to your project
 
+3) Import the LoadingView.h into the appropriate location
+
 3) Initialize the object and set the circle size
 
-    Example: LoadingView *loading = [[LoadingView alloc] initWithCircleSize:6.0f];
+    LoadingView *loading = [[LoadingView alloc] initWithCircleSize:6.0f];
     
 4) Add the object to a view in the desired position
 
-    Example: [loading showInView:self.view withOrigin:CGPointZero];
+    [loading showInView:self.view withOrigin:CGPointZero];
     
 5) When ready, begin animation
 
-    Example: [loading startAnimating];
+    [loading startAnimating];
     
