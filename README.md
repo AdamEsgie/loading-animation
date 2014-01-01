@@ -27,3 +27,10 @@ For use:
 
     [loading startAnimating];
     
+6) When ready, end animation
+
+    [loading stopAnimating];
+    
+7) Hide/Show as desired
+
+    [loading hide];
