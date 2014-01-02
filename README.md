@@ -9,7 +9,7 @@ The library allows for customization of the size, color, speed of the animation/
 
 ![example](https://dl.dropboxusercontent.com/u/13225319/loadingExample.png)
 
-For use:
+### For use:
 
 1) Download or clone the repo
 
