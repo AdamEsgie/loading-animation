@@ -1,7 +1,7 @@
 loading-animation
 =================
 
-Cocoa Library that allows one to easily add a loading animation to a project.
+Cocoa Library that allows one to easily add a loading animation to any project.
 
 The animation consists of three circles growing and shrinking in succession.
 
