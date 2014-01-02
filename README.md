@@ -37,8 +37,8 @@ For use:
 
     [loading hide];
     
-Credits:
+#H1 Credits:
 Props to [Matt Yu](http://www.mattyu.ca/) for design.  This was created as a part of the [Birdseye Mail](http://www.birdseyemail.com/) email project.
 
-License:
+#H1 License:
 loading-animation is available under the MIT license. See the LICENSE file for more info.
