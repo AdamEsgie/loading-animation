@@ -36,7 +36,7 @@ For use:
     [loading hide];
     
 Credits:
-Props to Matt Yu for design
+Props to [Matt Yu](http://www.mattyu.ca/) for design
 
 License:
-
+loading-animation is available under the MIT license. See the LICENSE file for more info.
