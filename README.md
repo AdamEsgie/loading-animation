@@ -7,7 +7,7 @@ The animation consists of three circles growing and shrinking in succession.
 
 The library allows for customization of the size, color, speed of the animation/circles.
 
-![example](https://raw.github.com/AdamEsgie/loading-animation/blob/master/Loading/loadingExample.png)
+![example](https://dl.dropboxusercontent.com/u/13225319/loadingExample.png)
 
 For use:
 
