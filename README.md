@@ -34,3 +34,9 @@ For use:
 7) Hide/Show as desired
 
     [loading hide];
+    
+Credits:
+Props to Matt Yu for design
+
+License:
+
