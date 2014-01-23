@@ -45,6 +45,14 @@
   [stopButton addTarget:self action:@selector(stopAnimation) forControlEvents:UIControlEventTouchUpInside];
   [self.view addSubview:stopButton];
   
+  UIButton *opacity = [UIButton new];
+  opacity.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2-30, CGRectGetHeight(self.view.bounds)-70, 50, 40);
+  [opacity setTitle:@"Opac" forState:UIControlStateNormal];
+  opacity.titleLabel.textColor = [UIColor whiteColor];
+  opacity.backgroundColor = [UIColor lightGrayColor];
+  [opacity addTarget:self action:@selector(addOpacity) forControlEvents:UIControlEventTouchUpInside];
+  [self.view addSubview:opacity];
+  
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,5 +71,9 @@
   [self.loading stopAnimating];
 }
 
+- (void)addOpacity
+{
+  [self.loading addStartingOpacity:0.5];
+}
 
 @end
