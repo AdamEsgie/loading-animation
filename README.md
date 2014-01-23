@@ -25,15 +25,19 @@ The library allows for customization of the size, color, speed of the animation/
 
     [loading showInView:self.view withCenterPoint:CGPointMake(self.size.width/2, self.size.height/2)];
     
-5) When ready, begin animation
+5) If you desire opacity, specify starting #
+
+    [loading addStartingOpacity:0.5];
+
+6) When ready, begin animation
 
     [loading startAnimating];
     
-6) When ready, end animation
+7) When ready, end animation
 
     [loading stopAnimating];
     
-7) Hide/Show as desired
+8) Hide/Show as desired
 
     [loading hide];
     
