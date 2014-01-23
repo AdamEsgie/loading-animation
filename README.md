@@ -23,7 +23,7 @@ The library allows for customization of the size, color, speed of the animation/
     
 4) Add the object to a view in the desired position
 
-    [loading showInView:self.view withOrigin:CGPointZero];
+    [loading showInView:self.view withCenterPoint:CGPointMake(self.size.width/2, self.size.height/2)];
     
 5) When ready, begin animation
 
