@@ -23,7 +23,6 @@
   self = [super init];
   if (self) {
     self.backgroundColor = [UIColor clearColor];
-    self.origin = CGPointZero;
     self.circleSize = CGSizeMake(size, size);
     self.spacing = (self.circleSize.width*1.25 - self.circleSize.width)+1.5f;
     self.speed = 0.6;
@@ -36,11 +35,11 @@
   return self;
 }
 
-- (void)showInView:(UIView *)view withOrigin:(CGPoint)origin;
+- (void)showInView:(UIView *)view withCenterPoint:(CGPoint)center;
 {
   self.hidden = NO;
-  self.origin = origin;
-  self.frame = CGRectMake(self.origin.x, self.origin.y, (self.circleSize.width * 3) + (self.spacing * 2), self.circleSize.height);
+  self.center = center;
+  self.frame = CGRectMake(center.x - (self.circleSize.width * 1.5) - self.spacing, center.y - (self.circleSize.height / 2), (self.circleSize.width * 3) + (self.spacing * 2), self.circleSize.height);
   self.one.opacity = self.opacity;
   [view addSubview:self];
   
