@@ -78,10 +78,6 @@
   self.isAnimating = YES;
   self.hidden = NO;
   
-  self.one.opacity = self.opacity;
-  self.two.opacity = self.opacity;
-  self.three.opacity = self.opacity;
-  
   self.scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
   [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.0f]];
   [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.25f]];
@@ -95,7 +91,7 @@
   
   if (self.opacityWasSet == YES) {
     self.opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [self.opacityAnimation setFromValue:[NSNumber numberWithFloat:0.5f]];
+    [self.opacityAnimation setFromValue:[NSNumber numberWithFloat:self.opacity]];
     [self.opacityAnimation setToValue:[NSNumber numberWithFloat:1.00f]];
     [self.opacityAnimation setDuration:self.speed];
     [self.opacityAnimation setRemovedOnCompletion:NO];
@@ -138,6 +134,10 @@
 {
   self.opacity = opacity;
   self.opacityWasSet = YES;
+  
+  self.one.opacity = self.opacity;
+  self.two.opacity = self.opacity;
+  self.three.opacity = self.opacity;
 }
 
 @end
