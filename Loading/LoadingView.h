@@ -5,7 +5,7 @@
 @interface LoadingView : UIImageView
 
 @property (nonatomic, strong) UIColor *color;
-@property float speed;
+@property CGFloat speed;
 @property BOOL isAnimating;
 
 - (id)initWithCircleSize:(float)size;

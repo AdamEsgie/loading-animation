@@ -1,5 +1,4 @@
 
-
 #import "LoadingView.h"
 
 @interface LoadingView()
@@ -25,8 +24,8 @@
     self.backgroundColor = [UIColor clearColor];
     self.circleSize = CGSizeMake(size, size);
     self.spacing = (self.circleSize.width*1.25 - self.circleSize.width)+1.5f;
-    self.speed = 0.6;
     self.color = [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:204.0f/255.0f alpha:1];
+    self.speed = 0.6;
     self.clipsToBounds = NO;
     self.isAnimating = NO;
     self.opacity = 1.0f;
@@ -79,14 +78,13 @@
   
   self.scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
   [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.0f]];
-  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.25f]];
+  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.28f]];
   [self.scaleAnimation setDuration:self.speed];
   [self.scaleAnimation setRemovedOnCompletion:NO];
   [self.scaleAnimation setFillMode:kCAFillModeForwards];
   [self.scaleAnimation setRepeatCount:HUGE_VALF];
   [self.scaleAnimation setAutoreverses:YES];
-  [self.scaleAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-  [self.one addAnimation:self.scaleAnimation forKey:@"scale"];
+  [self.scaleAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
   
   if (self.opacityWasSet == YES) {
     self.opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -97,27 +95,34 @@
     [self.opacityAnimation setFillMode:kCAFillModeForwards];
     [self.opacityAnimation setRepeatCount:HUGE_VALF];
     [self.opacityAnimation setAutoreverses:YES];
-    [self.opacityAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.opacityAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
+  }
+  
+  CFTimeInterval dotOneBeginTime = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
+  
+  self.scaleAnimation.beginTime = dotOneBeginTime;
+  self.opacityAnimation.beginTime = dotOneBeginTime;
+  
+  [self.one addAnimation:self.scaleAnimation forKey:@"scale"];
+  if (self.opacityWasSet == YES) {
     [self.one addAnimation:self.opacityAnimation forKey:@"opacity"];
   }
   
-  double delayOne = self.speed/3;
-  dispatch_time_t popTimeOne = dispatch_time(DISPATCH_TIME_NOW, delayOne * NSEC_PER_SEC);
-  dispatch_after(popTimeOne, dispatch_get_main_queue(), ^(void){
-    [self.two addAnimation:self.scaleAnimation forKey:@"scale"];
-    if (self.opacityWasSet == YES) {
-      [self.two addAnimation:self.opacityAnimation forKey:@"opacity"];
-    }
-  });
+  self.scaleAnimation.beginTime = dotOneBeginTime + (self.speed / 3);
+  self.opacityAnimation.beginTime = dotOneBeginTime + (self.speed / 3);
   
-  double delayTwo = (self.speed/3)*2.0;
-  dispatch_time_t popTimeTwo = dispatch_time(DISPATCH_TIME_NOW, delayTwo * NSEC_PER_SEC);
-  dispatch_after(popTimeTwo, dispatch_get_main_queue(), ^(void){
-    [self.three addAnimation:self.scaleAnimation forKey:@"scale"];
-    if (self.opacityWasSet == YES) {
-      [self.three addAnimation:self.opacityAnimation forKey:@"opacity"];
-    }
-  });
+  [self.two addAnimation:self.scaleAnimation forKey:@"scale"];
+  if (self.opacityWasSet == YES) {
+    [self.two addAnimation:self.opacityAnimation forKey:@"opacity"];
+  }
+  
+  self.scaleAnimation.beginTime = dotOneBeginTime + ((self.speed / 3) * 2);
+  self.opacityAnimation.beginTime = dotOneBeginTime + ((self.speed / 3) * 2);
+  
+  [self.three addAnimation:self.scaleAnimation forKey:@"scale"];
+  if (self.opacityWasSet == YES) {
+    [self.three addAnimation:self.opacityAnimation forKey:@"opacity"];
+  }
   
 }
 
@@ -140,3 +145,4 @@
 }
 
 @end
+
