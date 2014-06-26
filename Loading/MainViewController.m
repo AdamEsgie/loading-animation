@@ -23,55 +23,63 @@
 {
   [super viewDidLoad];
   [self addButtons];
-  self.loading = [[LoadingView alloc] initWithCircleSize:6.0f];
+  self.loading = [[LoadingView alloc] initWithCircleSize:8.0f];
   [self.loading showInView:self.view withCenterPoint:CGPointMake(CGRectGetWidth(self.view.bounds)/2, CGRectGetHeight(self.view.bounds)/2)];
 }
 
 - (void)addButtons
 {
-  UIButton *startButton = [UIButton new];
-  startButton.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2-55, CGRectGetHeight(self.view.bounds)-120, 50, 40);
-  [startButton setTitle:@"Start" forState:UIControlStateNormal];
-  startButton.titleLabel.textColor = [UIColor whiteColor];
-  startButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-  startButton.backgroundColor = [UIColor lightGrayColor];
-  [startButton addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:startButton];
+  NSArray *buttonNames = @[@"Start", @"Stop", @"Opacity", @"Reset"];
+  for (int i = 0; i < buttonNames.count; i++)
+  {
+    [self setupButtonWithTitle:buttonNames[i] atIndex:i];
+  }
   
-  UIButton *stopButton = [UIButton new];
-  stopButton.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2+5, CGRectGetHeight(self.view.bounds)-120, 50, 40);
-  [stopButton setTitle:@"Stop" forState:UIControlStateNormal];
-  stopButton.titleLabel.textColor = [UIColor whiteColor];
-  stopButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-  stopButton.backgroundColor = [UIColor lightGrayColor];
-  [stopButton addTarget:self action:@selector(stopAnimation) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:stopButton];
+}
+
+-(void)setupButtonWithTitle:(NSString *)title atIndex:(NSInteger)index
+{
+  UIButton *button = [UIButton new];
+  [button setTitle:title forState:UIControlStateNormal];
+  button.titleLabel.textColor = [UIColor whiteColor];
+  button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+  button.backgroundColor = [UIColor lightGrayColor];
   
-  UIButton *opacity = [UIButton new];
-  opacity.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2-55, CGRectGetHeight(self.view.bounds)-70, 50, 40);
-  [opacity setTitle:@"Opacity" forState:UIControlStateNormal];
-  opacity.titleLabel.textColor = [UIColor whiteColor];
-  opacity.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-  opacity.backgroundColor = [UIColor lightGrayColor];
-  [opacity addTarget:self action:@selector(addOpacity) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:opacity];
+  switch (index) {
+    case 0:
+      button.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2-55, CGRectGetHeight(self.view.bounds)-120, 50, 40);
+      [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
+      break;
+      
+    case 1:
+       button.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2+5, CGRectGetHeight(self.view.bounds)-120, 50, 40);
+      [button addTarget:self action:@selector(stopAnimation) forControlEvents:UIControlEventTouchUpInside];
+      break;
+      
+    case 2:
+      button.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2-55, CGRectGetHeight(self.view.bounds)-70, 50, 40);
+      [button addTarget:self action:@selector(addOpacity) forControlEvents:UIControlEventTouchUpInside];
+      break;
+    
+    case 3:
+      button.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2+5, CGRectGetHeight(self.view.bounds)-70, 50, 40);
+      [button addTarget:self action:@selector(reset) forControlEvents:UIControlEventTouchUpInside];
+      break;
+
+      
+    default:
+      break;
+  }
   
-  UIButton *reset = [UIButton new];
-  reset.frame = CGRectMake(CGRectGetWidth(self.view.bounds)/2+5, CGRectGetHeight(self.view.bounds)-70, 50, 40);
-  [reset setTitle:@"Reset" forState:UIControlStateNormal];
-  reset.titleLabel.textColor = [UIColor whiteColor];
-  reset.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-  reset.backgroundColor = [UIColor lightGrayColor];
-  [reset addTarget:self action:@selector(reset) forControlEvents:UIControlEventTouchUpInside];
-  [self.view addSubview:reset];
-  
+  [self.view addSubview:button];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - IBAction Selectors
 
 - (void)startAnimation
 {

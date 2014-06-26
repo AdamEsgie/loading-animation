@@ -23,7 +23,7 @@
   if (self) {
     self.backgroundColor = [UIColor clearColor];
     self.circleSize = CGSizeMake(size, size);
-    self.spacing = (self.circleSize.width*1.25 - self.circleSize.width)+1.5f;
+    self.spacing = (self.circleSize.width * 1.25 - self.circleSize.width) + 2.0f;
     self.color = [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:204.0f/255.0f alpha:1];
     self.speed = 0.6;
     self.clipsToBounds = NO;
@@ -34,12 +34,21 @@
   return self;
 }
 
+- (void)layoutSubviews
+{
+  self.frame = CGRectMake(self.center.x - (self.circleSize.width * 1.5) - self.spacing, self.center.y - (self.circleSize.height / 2), (self.circleSize.width * 3) + (self.spacing * 2), self.circleSize.height);
+}
+
 - (void)showInView:(UIView *)view withCenterPoint:(CGPoint)center;
 {
+  [self removeFromSuperview];
+  [self.one removeFromSuperlayer];
+  [self.two removeFromSuperlayer];
+  [self.three removeFromSuperlayer];
+  
   self.hidden = NO;
   self.center = center;
-  self.frame = CGRectMake(center.x - (self.circleSize.width * 1.5) - self.spacing, center.y - (self.circleSize.height / 2), (self.circleSize.width * 3) + (self.spacing * 2), self.circleSize.height);
-  self.one.opacity = self.opacity;
+  
   [view addSubview:self];
   
   self.one = [CAShapeLayer layer];
@@ -53,14 +62,14 @@
   [self.two setFrame:CGRectMake((self.circleSize.width + self.spacing), 0, self.circleSize.width, self.circleSize.height)];
   [self.two setPath:[[UIBezierPath bezierPathWithOvalInRect:self.two.bounds] CGPath]];
   self.two.fillColor = self.color.CGColor;
-  self.one.opacity = self.opacity;
+  self.two.opacity = self.opacity;
   [[self layer] addSublayer:self.two];
   
   self.three = [CAShapeLayer layer];
-  [self.three setFrame:CGRectMake((self.circleSize.width + self.spacing)*2, 0, self.circleSize.width, self.circleSize.height)];
+  [self.three setFrame:CGRectMake((self.circleSize.width + self.spacing) * 2, 0, self.circleSize.width, self.circleSize.height)];
   [self.three setPath:[[UIBezierPath bezierPathWithOvalInRect:self.three.bounds] CGPath]];
   self.three.fillColor = self.color.CGColor;
-  self.one.opacity = self.opacity;
+  self.three.opacity = self.opacity;
   [[self layer] addSublayer:self.three];
   
 }
@@ -77,8 +86,8 @@
   self.hidden = NO;
   
   self.scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-  [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.0f]];
-  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.28f]];
+  [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.00f]];
+  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.22f]];
   [self.scaleAnimation setDuration:self.speed];
   [self.scaleAnimation setRemovedOnCompletion:NO];
   [self.scaleAnimation setFillMode:kCAFillModeForwards];
