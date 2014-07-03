@@ -12,6 +12,7 @@
 @property CGFloat spacing;
 @property BOOL opacityWasSet;
 @property float opacity;
+@property (nonatomic, strong) NSArray *dots;
 
 @end
 
@@ -41,37 +42,17 @@
 
 - (void)showInView:(UIView *)view withCenterPoint:(CGPoint)center;
 {
-  [self removeFromSuperview];
-  [self.one removeFromSuperlayer];
-  [self.two removeFromSuperlayer];
-  [self.three removeFromSuperlayer];
-  
-  self.hidden = NO;
   self.center = center;
   
   [view addSubview:self];
   
   self.one = [CAShapeLayer layer];
-  [self.one setFrame:CGRectMake(0, 0, self.circleSize.width, self.circleSize.height)];
-  [self.one setPath:[[UIBezierPath bezierPathWithOvalInRect:self.one.bounds] CGPath]];
-  self.one.fillColor = self.color.CGColor;
-  self.one.opacity = self.opacity;
-  [[self layer] addSublayer:self.one];
-  
   self.two = [CAShapeLayer layer];
-  [self.two setFrame:CGRectMake((self.circleSize.width + self.spacing), 0, self.circleSize.width, self.circleSize.height)];
-  [self.two setPath:[[UIBezierPath bezierPathWithOvalInRect:self.two.bounds] CGPath]];
-  self.two.fillColor = self.color.CGColor;
-  self.two.opacity = self.opacity;
-  [[self layer] addSublayer:self.two];
-  
   self.three = [CAShapeLayer layer];
-  [self.three setFrame:CGRectMake((self.circleSize.width + self.spacing) * 2, 0, self.circleSize.width, self.circleSize.height)];
-  [self.three setPath:[[UIBezierPath bezierPathWithOvalInRect:self.three.bounds] CGPath]];
-  self.three.fillColor = self.color.CGColor;
-  self.three.opacity = self.opacity;
-  [[self layer] addSublayer:self.three];
   
+  NSArray *dots = @[self.one, self.two, self.three];
+  
+  [self setupDotsFromArray:dots];
 }
 
 - (void)hide
@@ -85,26 +66,10 @@
   self.isAnimating = YES;
   self.hidden = NO;
   
-  self.scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-  [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.00f]];
-  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.22f]];
-  [self.scaleAnimation setDuration:self.speed];
-  [self.scaleAnimation setRemovedOnCompletion:NO];
-  [self.scaleAnimation setFillMode:kCAFillModeForwards];
-  [self.scaleAnimation setRepeatCount:HUGE_VALF];
-  [self.scaleAnimation setAutoreverses:YES];
-  [self.scaleAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
+  [self createScaleAnimation];
   
   if (self.opacityWasSet == YES) {
-    self.opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [self.opacityAnimation setFromValue:[NSNumber numberWithFloat:self.opacity]];
-    [self.opacityAnimation setToValue:[NSNumber numberWithFloat:1.00f]];
-    [self.opacityAnimation setDuration:self.speed];
-    [self.opacityAnimation setRemovedOnCompletion:NO];
-    [self.opacityAnimation setFillMode:kCAFillModeForwards];
-    [self.opacityAnimation setRepeatCount:HUGE_VALF];
-    [self.opacityAnimation setAutoreverses:YES];
-    [self.opacityAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
+    [self createOpacityAnimation];
   }
   
   CFTimeInterval dotOneBeginTime = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
@@ -146,11 +111,68 @@
 - (void)addStartingOpacity:(float)opacity
 {
   self.opacity = opacity;
-  self.opacityWasSet = YES;
   
   self.one.opacity = self.opacity;
   self.two.opacity = self.opacity;
   self.three.opacity = self.opacity;
+  
+  self.opacityWasSet = YES;
+}
+
+- (void)createScaleAnimation
+{
+  self.scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+  [self.scaleAnimation setFromValue:[NSNumber numberWithFloat:1.00f]];
+  [self.scaleAnimation setToValue:[NSNumber numberWithFloat:1.22f]];
+  [self.scaleAnimation setDuration:self.speed];
+  [self.scaleAnimation setRemovedOnCompletion:NO];
+  [self.scaleAnimation setFillMode:kCAFillModeForwards];
+  [self.scaleAnimation setRepeatCount:HUGE_VALF];
+  [self.scaleAnimation setAutoreverses:YES];
+  [self.scaleAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
+}
+
+-(void)createOpacityAnimation
+{
+  self.opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  [self.opacityAnimation setFromValue:[NSNumber numberWithFloat:self.opacity]];
+  [self.opacityAnimation setToValue:[NSNumber numberWithFloat:1.00f]];
+  [self.opacityAnimation setDuration:self.speed];
+  [self.opacityAnimation setRemovedOnCompletion:NO];
+  [self.opacityAnimation setFillMode:kCAFillModeForwards];
+  [self.opacityAnimation setRepeatCount:HUGE_VALF];
+  [self.opacityAnimation setAutoreverses:YES];
+  [self.opacityAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
+}
+
+- (void)setupDotsFromArray:(NSArray*)array
+{
+  [array enumerateObjectsUsingBlock:^(CAShapeLayer *dot, NSUInteger idx, BOOL *stop) {
+    
+    switch (idx) {
+      case 0:
+        [dot setFrame:CGRectMake(0, 0, self.circleSize.width, self.circleSize.height)];
+        break;
+        
+      case 1:
+        [dot setFrame:CGRectMake((self.circleSize.width + self.spacing), 0, self.circleSize.width, self.circleSize.height)];
+        break;
+        
+      case 2:
+        [dot setFrame:CGRectMake((self.circleSize.width + self.spacing) * 2, 0, self.circleSize.width, self.circleSize.height)];
+        break;
+        
+      default:
+        break;
+    }
+    
+    [dot setPath:[[UIBezierPath bezierPathWithOvalInRect:dot.bounds] CGPath]];
+    dot.fillColor = self.color.CGColor;
+    dot.opacity = self.opacity;
+    [[self layer] addSublayer:dot];
+    
+  }];
+  
 }
 
 @end
