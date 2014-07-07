@@ -11,8 +11,8 @@
 - (id)initWithCircleSize:(float)size;
 - (void)showInView:(UIView *)view withCenterPoint:(CGPoint)center;
 - (void)hide;
-- (void)startAnimating;
-- (void)stopAnimating;
+- (void)startLoading;
+- (void)stopLoading;
 - (void)addStartingOpacity:(float)opacity;
 
 @end

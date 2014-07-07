@@ -83,12 +83,12 @@
 
 - (void)startAnimation
 {
-  [self.loading startAnimating];
+  [self.loading startLoading];
 }
 
 - (void)stopAnimation
 {
-  [self.loading stopAnimating];
+  [self.loading stopLoading];
 }
 
 - (void)addOpacity
@@ -98,7 +98,7 @@
 
 - (void)reset
 {
-  [self.loading stopAnimating];
+  [self.loading stopLoading];
   [self.loading addStartingOpacity:1.0];
 }
 

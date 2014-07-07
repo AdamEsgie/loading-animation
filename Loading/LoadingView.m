@@ -61,7 +61,7 @@
   [self stopAnimating];
 }
 
-- (void)startAnimating
+- (void)startLoading
 {
   self.isAnimating = YES;
   self.hidden = NO;
@@ -90,7 +90,7 @@
   };
 }
 
-- (void)stopAnimating
+- (void)stopLoading
 {
   self.isAnimating = NO;
   [self.one removeAllAnimations];
