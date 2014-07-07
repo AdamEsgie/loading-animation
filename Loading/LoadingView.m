@@ -135,11 +135,14 @@
   [self.opacityAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.5 :0 :.5 :1]];
 }
 
-- (void)setupDotsFromArray:(NSArray*)array
+- (void)setupDotsFromArray:(NSArray*)dots
 {
-  [array enumerateObjectsUsingBlock:^(CAShapeLayer *dot, NSUInteger idx, BOOL *stop) {
+  
+  for (int i = 0; i < dots.count; i++) {
     
-    switch (idx) {
+    CAShapeLayer *dot = dots[i];
+    
+    switch (i) {
       case 0:
         [dot setFrame:CGRectMake(0, 0, self.circleSize.width, self.circleSize.height)];
         break;
@@ -161,7 +164,7 @@
     dot.opacity = self.opacity;
     [[self layer] addSublayer:dot];
     
-  }];
+  };
   
 }
 
