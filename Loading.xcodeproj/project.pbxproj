@@ -21,7 +21,7 @@
 		8D6689BE18728ABA00999DC7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D6689BC18728ABA00999DC7 /* InfoPlist.strings */; };
 		8D6689C018728ABA00999DC7 /* LoadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6689BF18728ABA00999DC7 /* LoadingTests.m */; };
 		8D6689E61874CE7000999DC7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6689E51874CE7000999DC7 /* QuartzCore.framework */; };
-		8D6689E91874E25000999DC7 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D6689E81874E25000999DC7 /* LoadingView.m */; };
+		CAB29942196AFCA700D6B7A5 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB29941196AFCA700D6B7A5 /* LoadingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +54,8 @@
 		8D6689BD18728ABA00999DC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8D6689BF18728ABA00999DC7 /* LoadingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoadingTests.m; sourceTree = "<group>"; };
 		8D6689E51874CE7000999DC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8D6689E71874E25000999DC7 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
-		8D6689E81874E25000999DC7 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
+		CAB29940196AFCA700D6B7A5 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
+		CAB29941196AFCA700D6B7A5 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +160,8 @@
 		8D6689C9187295AB00999DC7 /* LoadAnimationLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				8D6689E71874E25000999DC7 /* LoadingView.h */,
-				8D6689E81874E25000999DC7 /* LoadingView.m */,
+				CAB29940196AFCA700D6B7A5 /* LoadingView.h */,
+				CAB29941196AFCA700D6B7A5 /* LoadingView.m */,
 			);
 			name = LoadAnimationLibrary;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D6689AB18728ABA00999DC7 /* MainViewController.m in Sources */,
-				8D6689E91874E25000999DC7 /* LoadingView.m in Sources */,
+				CAB29942196AFCA700D6B7A5 /* LoadingView.m in Sources */,
 				8D6689A518728ABA00999DC7 /* AppDelegate.m in Sources */,
 				8D6689A118728ABA00999DC7 /* main.m in Sources */,
 			);
