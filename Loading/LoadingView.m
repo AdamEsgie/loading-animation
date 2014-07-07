@@ -50,9 +50,9 @@
   self.two = [CAShapeLayer layer];
   self.three = [CAShapeLayer layer];
   
-  NSArray *dots = @[self.one, self.two, self.three];
+  self.dots = @[self.one, self.two, self.three];
   
-  [self setupDotsFromArray:dots];
+  [self setupDotsFromArray:self.dots];
 }
 
 - (void)hide
@@ -73,31 +73,21 @@
   }
   
   CFTimeInterval dotOneBeginTime = [self.layer convertTime:CACurrentMediaTime() fromLayer:nil];
+  CFTimeInterval dotTwoBeginTime = dotOneBeginTime + (self.speed / 3);
+  CFTimeInterval dotThreeBeginTime = dotOneBeginTime + ((self.speed / 3) * 2);
+
+  NSArray *times = @[@(dotOneBeginTime), @(dotTwoBeginTime), @(dotThreeBeginTime)];
   
-  self.scaleAnimation.beginTime = dotOneBeginTime;
-  self.opacityAnimation.beginTime = dotOneBeginTime;
-  
-  [self.one addAnimation:self.scaleAnimation forKey:@"scale"];
-  if (self.opacityWasSet == YES) {
-    [self.one addAnimation:self.opacityAnimation forKey:@"opacity"];
-  }
-  
-  self.scaleAnimation.beginTime = dotOneBeginTime + (self.speed / 3);
-  self.opacityAnimation.beginTime = dotOneBeginTime + (self.speed / 3);
-  
-  [self.two addAnimation:self.scaleAnimation forKey:@"scale"];
-  if (self.opacityWasSet == YES) {
-    [self.two addAnimation:self.opacityAnimation forKey:@"opacity"];
-  }
-  
-  self.scaleAnimation.beginTime = dotOneBeginTime + ((self.speed / 3) * 2);
-  self.opacityAnimation.beginTime = dotOneBeginTime + ((self.speed / 3) * 2);
-  
-  [self.three addAnimation:self.scaleAnimation forKey:@"scale"];
-  if (self.opacityWasSet == YES) {
-    [self.three addAnimation:self.opacityAnimation forKey:@"opacity"];
-  }
-  
+  for (int i = 0; i < times.count; i++)
+  {
+    self.scaleAnimation.beginTime = [times[i] doubleValue];
+    self.opacityAnimation.beginTime = [times[i] doubleValue];
+    
+    [self.dots[i] addAnimation:self.scaleAnimation forKey:@"scale"];
+    if (self.opacityWasSet == YES) {
+      [self.dots[i] addAnimation:self.opacityAnimation forKey:@"opacity"];
+    }
+  };
 }
 
 - (void)stopAnimating
